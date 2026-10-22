@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Flow · Kanban Board</title>
+  <meta name="description" content="A drag-and-drop Kanban board that works with mouse, touch and keyboard. Saves in your browser.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231F2A44'/%3E%3Crect x='7' y='8' width='5' height='16' rx='2' fill='%23F4C95D'/%3E%3Crect x='14' y='8' width='5' height='11' rx='2' fill='%23fff'/%3E%3Crect x='21' y='8' width='5' height='7' rx='2' fill='%23fff'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand"><span class="logo" aria-hidden="true"><i></i><i></i><i></i></span><span>Flow</span></div>
+    <div class="board-title">
+      <label class="sr" for="boardName">Board name</label>
+      <input id="boardName" value="My board" maxlength="40">
+    </div>
+    <div class="tools">
+      <label class="search"><span class="sr">Search cards</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        <input id="search" type="search" placeholder="Search cards">
+      </label>
+      <select id="labelFilter" aria-label="Filter by label">
+        <option value="">All labels</option>
+      </select>
+      <button class="btn ghost" id="menuBtn" type="button" aria-haspopup="true" aria-expanded="false">More</button>
+      <div class="menu" id="menu" hidden>
+        <button type="button" data-act="export">Export JSON</button>
+        <label class="as-btn">Import JSON<input type="file" id="importFile" accept="application/json" hidden></label>
+        <button type="button" data-act="reset">Reset to sample</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="board" id="board" aria-label="Board columns"></main>
+
+  <p class="hint">Drag cards to move them. On touch, press and hold a card first. With a keyboard, focus a card and use <kbd>Alt</kbd> + arrow keys.</p>
+
+  <dialog id="editor" aria-labelledby="editorTitle">
+    <form method="dialog" id="editorForm">
+      <h2 id="editorTitle">Edit card</h2>
+      <label>Title<input name="title" required maxlength="120"></label>
+      <label>Notes<textarea name="notes" rows="4" maxlength="1000"></textarea></label>
+      <div class="row">
+        <label>Label
+          <select name="label">
+            <option value="">None</option>
+            <option value="design">Design</option>
+            <option value="dev">Dev</option>
+            <option value="bug">Bug</option>
+            <option value="research">Research</option>
+          </select>
+        </label>
+        <label>Due date<input name="due" type="date"></label>
+      </div>
+      <div class="dialog-actions">
+        <button type="button" class="btn danger" id="deleteCard">Delete</button>
+        <span class="spacer"></span>
+        <button value="cancel" class="btn ghost" formnovalidate>Cancel</button>
+        <button value="save" class="btn primary">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <footer class="foot">Built by <a href="https://github.com/cryoviper" target="_blank" rel="noopener">Praveen Sinwar</a> · Data stays in your browser</footer>
+  <script src="app.js" type="module"></script>
+</body>
+</html>
